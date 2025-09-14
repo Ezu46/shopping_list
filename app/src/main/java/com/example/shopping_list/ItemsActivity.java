@@ -91,6 +91,11 @@ public class ItemsActivity extends AppCompatActivity implements ShoppingItemAdap
     }
 
     @Override
+    public void onQuantityChanged(ShoppingItem item) {
+        viewModel.update(item);
+    }
+
+    @Override
     public void onItemLongPress(ShoppingItem item) {
         showEditItemDialog(item);
     }

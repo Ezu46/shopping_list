@@ -18,7 +18,8 @@ public class ShoppingItemAdapter extends ListAdapter<ShoppingItem, ShoppingItemA
 
     public interface OnItemInteractionListener {
         void onPurchasedToggled(@NonNull ShoppingItem item, boolean purchased);
-        void onItemLongPress(@NonNull ShoppingItem item); // for delete/edit if needed
+        void onItemLongPress(@NonNull ShoppingItem item);
+        void onQuantityChanged(@NonNull ShoppingItem item); // called after + / -
     }
 
     private final OnItemInteractionListener listener;
@@ -44,12 +45,16 @@ public class ShoppingItemAdapter extends ListAdapter<ShoppingItem, ShoppingItemA
         private final CheckBox cbPurchased;
         private final TextView tvName;
         private final TextView tvQty;
+        private final android.widget.Button btnPlus;
+        private final android.widget.Button btnMinus;
 
         ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             cbPurchased = itemView.findViewById(R.id.cbPurchased);
             tvName = itemView.findViewById(R.id.tvItemName);
             tvQty = itemView.findViewById(R.id.tvQuantity);
+            btnPlus = itemView.findViewById(R.id.btnPlus);
+            btnMinus = itemView.findViewById(R.id.btnMinus);
         }
 
         void bind(ShoppingItem item) {
@@ -59,6 +64,21 @@ public class ShoppingItemAdapter extends ListAdapter<ShoppingItem, ShoppingItemA
             cbPurchased.setChecked(item.purchased);
             cbPurchased.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 listener.onPurchasedToggled(item, isChecked);
+            });
+
+            // quantity display
+            tvQty.setText(String.valueOf(item.quantity));
+            btnPlus.setOnClickListener(v -> {
+                item.quantity += 1;
+                tvQty.setText(String.valueOf(item.quantity));
+                listener.onQuantityChanged(item);
+            });
+            btnMinus.setOnClickListener(v -> {
+                if (item.quantity > 1) {
+                    item.quantity -= 1;
+                    tvQty.setText(String.valueOf(item.quantity));
+                    listener.onQuantityChanged(item);
+                }
             });
 
             itemView.setOnLongClickListener(v -> {

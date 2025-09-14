@@ -44,6 +44,9 @@ public interface ShoppingDao {
     @Query("DELETE FROM shopping_items WHERE listId = :listId")
     void deleteItemsForList(long listId);
 
+    @Query("DELETE FROM shopping_items WHERE listId = :listId AND purchased = 1")
+    void deletePurchased(long listId);
+
     @Query("SELECT COUNT(*) FROM shopping_items WHERE listId = :listId")
     LiveData<Integer> getItemCount(long listId);
 }
