@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Shopping_list</string>
+    <string name="add_list">Добавить список</string>
+    <string name="item_count_format">%1$d товаров</string>
+    <string name="create">Создать</string>
+    <string name="cancel">Отмена</string>
+    <string name="list_name_hint">Название списка</string>
+
+    <!-- ItemsActivity strings -->
+    <string name="add_item">Добавить товар</string>
+    <string name="item_name_hint">Название товара</string>
+    <string name="quantity_hint">Количество</string>
+    <string name="save">Сохранить</string>
+    <string name="delete">Удалить</string>
+    <string name="delete_item_title">Удалить товар?</string>
+    <string name="delete_item_msg">Вы уверены, что хотите удалить этот товар?</string>
 </resources>
