@@ -38,4 +38,8 @@ public class ShoppingItemViewModel extends AndroidViewModel {
     public void delete(ShoppingItem item) {
         repository.deleteItem(item);
     }
+
+    public void clearPurchased(long listId) {
+        repository.deletePurchased(listId);
+    }
 }

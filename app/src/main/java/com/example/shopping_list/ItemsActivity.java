@@ -21,6 +21,26 @@ import com.example.shopping_list.ui.viewmodel.ShoppingItemViewModel;
 
 public class ItemsActivity extends AppCompatActivity implements ShoppingItemAdapter.OnItemInteractionListener {
 
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_items, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        if (item.getItemId() == R.id.action_clear_purchased) {
+            new androidx.appcompat.app.AlertDialog.Builder(this)
+                    .setTitle(R.string.clear_purchased)
+                    .setMessage(R.string.delete_item_msg)
+                    .setPositiveButton(R.string.delete, (d, w) -> viewModel.clearPurchased(listId))
+                    .setNegativeButton(R.string.cancel, null)
+                    .show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private long listId;
     private String listName;
 
@@ -47,6 +67,15 @@ public class ItemsActivity extends AppCompatActivity implements ShoppingItemAdap
         viewModel.getItemsForList(listId).observe(this, adapter::submitList);
 
         findViewById(R.id.fabAddItem).setOnClickListener(v -> showAddItemDialog());
+
+        findViewById(R.id.fabClearPurchased).setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.clear_purchased)
+                    .setMessage(R.string.delete_item_msg)
+                    .setPositiveButton(R.string.delete, (d, w) -> viewModel.clearPurchased(listId))
+                    .setNegativeButton(R.string.cancel, null)
+                    .show();
+        });
 
         // swipe to delete
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {

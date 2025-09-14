@@ -20,4 +20,7 @@
     <string name="rename_list">Переименовать список</string>
     <string name="delete_list_title">Удалить список?</string>
     <string name="delete_list_msg">Вы уверены, что хотите удалить этот список?</string>
+
+    <!-- Clear purchased -->
+    <string name="clear_purchased">Очистить купленные</string>
 </resources>

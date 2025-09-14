@@ -59,4 +59,8 @@ public class ShoppingRepository {
     public void deleteItem(ShoppingItem item) {
         executorService.execute(() -> shoppingDao.deleteItem(item));
     }
+
+    public void deletePurchased(long listId) {
+        executorService.execute(() -> shoppingDao.deletePurchased(listId));
+    }
 }
