@@ -27,6 +27,10 @@ public class ShoppingRepository {
         return shoppingDao.getAllLists();
     }
     
+    public LiveData<Integer> getItemCount(long listId) {
+        return shoppingDao.getItemCount(listId);
+    }
+
     public void insertList(ShoppingList list) {
         executorService.execute(() -> shoppingDao.insertList(list));
     }

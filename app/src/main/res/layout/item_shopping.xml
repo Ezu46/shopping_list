@@ -17,11 +17,24 @@
         android:layout_weight="1"
         android:textAppearance="?attr/textAppearanceBody1" />
 
+    <Button
+        android:id="@+id/btnMinus"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text="-"/>
+
     <TextView
         android:id="@+id/tvQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         android:textAppearance="?attr/textAppearanceBody2" />
+
+    <Button
+        android:id="@+id/btnPlus"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:text="+"/>
 
 </LinearLayout>

@@ -92,10 +92,39 @@ public class ItemsActivity extends AppCompatActivity implements ShoppingItemAdap
 
     @Override
     public void onItemLongPress(ShoppingItem item) {
+        showEditItemDialog(item);
+    }
+
+    private void showEditItemDialog(ShoppingItem item) {
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_item, null);
+        EditText etName = dialogView.findViewById(R.id.etItemName);
+        EditText etQty = dialogView.findViewById(R.id.etQuantity);
+        etQty.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+        etName.setText(item.name);
+        etQty.setText(String.valueOf(item.quantity));
+
         new AlertDialog.Builder(this)
-                .setTitle(R.string.delete_item_title)
-                .setMessage(R.string.delete_item_msg)
-                .setPositiveButton(R.string.delete, (dialog, which) -> viewModel.delete(item))
+                .setTitle(R.string.edit_item)
+                .setView(dialogView)
+                .setPositiveButton(R.string.save, (dialog, which) -> {
+                    String newName = etName.getText().toString().trim();
+                    String qtyStr = etQty.getText().toString().trim();
+                    int newQty = qtyStr.isEmpty() ? 1 : Integer.parseInt(qtyStr);
+                    boolean changed = false;
+                    if (!newName.isEmpty() && !newName.equals(item.name)) {
+                        item.name = newName;
+                        changed = true;
+                    }
+                    if (newQty != item.quantity) {
+                        item.quantity = newQty;
+                        changed = true;
+                    }
+                    if (changed) {
+                        viewModel.update(item);
+                    }
+                })
+                .setNeutralButton(R.string.delete, (dialog, which) -> viewModel.delete(item))
                 .setNegativeButton(R.string.cancel, null)
                 .show();
     }

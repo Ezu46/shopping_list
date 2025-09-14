@@ -11,6 +11,7 @@
     <string name="item_name_hint">Название товара</string>
     <string name="quantity_hint">Количество</string>
     <string name="save">Сохранить</string>
+    <string name="edit_item">Редактировать товар</string>
     <string name="delete">Удалить</string>
     <string name="delete_item_title">Удалить товар?</string>
     <string name="delete_item_msg">Вы уверены, что хотите удалить этот товар?</string>

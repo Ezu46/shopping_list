@@ -32,12 +32,11 @@ private ShoppingListAdapter adapter;
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        viewModel = new ViewModelProvider(this).get(ShoppingListViewModel.class);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ShoppingListAdapter(this);
+        adapter = new ShoppingListAdapter(this, viewModel, this);
         recyclerView.setAdapter(adapter);
-
-        viewModel = new ViewModelProvider(this).get(ShoppingListViewModel.class);
         viewModel.getAllLists().observe(this, adapter::submitList);
 
         findViewById(R.id.fabAddList).setOnClickListener(v -> showAddListDialog());

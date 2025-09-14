@@ -12,8 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shopping_list.R;
 import com.example.shopping_list.data.model.ShoppingList;
+import com.example.shopping_list.ui.viewmodel.ShoppingListViewModel;
+import androidx.lifecycle.LifecycleOwner;
 
 public class ShoppingListAdapter extends ListAdapter<ShoppingList, ShoppingListAdapter.ListViewHolder> {
+
+    private final ShoppingListViewModel viewModel;
+    private final LifecycleOwner lifecycleOwner;
 
     public interface OnItemClickListener {
         void onItemClick(ShoppingList list);
@@ -22,9 +27,11 @@ public class ShoppingListAdapter extends ListAdapter<ShoppingList, ShoppingListA
 
     private final OnItemClickListener listener;
 
-    public ShoppingListAdapter(OnItemClickListener listener) {
+    public ShoppingListAdapter(OnItemClickListener listener, ShoppingListViewModel viewModel, androidx.lifecycle.LifecycleOwner owner) {
         super(DIFF_CALLBACK);
         this.listener = listener;
+        this.viewModel = viewModel;
+        this.lifecycleOwner = owner;
     }
 
     @NonNull
@@ -66,8 +73,10 @@ public class ShoppingListAdapter extends ListAdapter<ShoppingList, ShoppingListA
 
         void bind(ShoppingList list) {
             tvName.setText(list.name);
-            // tvCount can show 0 items for now; we'll update later with actual count
-            tvCount.setText(itemView.getContext().getString(R.string.item_count_format, 0));
+            // observe item count
+            viewModel.getItemCount(list.id).observe(lifecycleOwner, count -> {
+                tvCount.setText(itemView.getContext().getString(R.string.item_count_format, count));
+            });
         }
     }
 

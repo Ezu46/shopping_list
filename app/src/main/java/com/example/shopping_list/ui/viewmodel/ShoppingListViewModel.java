@@ -29,6 +29,10 @@ public class ShoppingListViewModel extends AndroidViewModel {
         repository.insertList(list);
     }
 
+    public LiveData<Integer> getItemCount(long listId) {
+        return repository.getItemCount(listId);
+    }
+
     public void updateList(ShoppingList list) {
         repository.updateList(list);
     }
