@@ -67,4 +67,34 @@ private ShoppingListAdapter adapter;
         intent.putExtra("listName", list.name);
         startActivity(intent);
     }
+
+    @Override
+    public void onItemLongClick(@NonNull ShoppingList list) {
+        showEditListDialog(list);
+    }
+
+    private void showEditListDialog(ShoppingList list) {
+        final EditText input = new EditText(this);
+        input.setText(list.name);
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.rename_list)
+                .setView(input)
+                .setPositiveButton(R.string.save, (d, w) -> {
+                    String newName = input.getText().toString().trim();
+                    if (!newName.isEmpty() && !newName.equals(list.name)) {
+                        list.name = newName;
+                        viewModel.updateList(list);
+                    }
+                })
+                .setNeutralButton(R.string.delete, (d, w) -> {
+                    new AlertDialog.Builder(this)
+                            .setTitle(R.string.delete_list_title)
+                            .setMessage(R.string.delete_list_msg)
+                            .setPositiveButton(R.string.delete, (dd, ww) -> viewModel.delete(list))
+                            .setNegativeButton(R.string.cancel, null)
+                            .show();
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+    }
 }

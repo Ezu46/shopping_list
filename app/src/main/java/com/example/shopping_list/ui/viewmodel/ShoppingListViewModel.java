@@ -29,6 +29,10 @@ public class ShoppingListViewModel extends AndroidViewModel {
         repository.insertList(list);
     }
 
+    public void updateList(ShoppingList list) {
+        repository.updateList(list);
+    }
+
     public void delete(ShoppingList list) {
         repository.deleteList(list);
     }

@@ -17,6 +17,7 @@ public class ShoppingListAdapter extends ListAdapter<ShoppingList, ShoppingListA
 
     public interface OnItemClickListener {
         void onItemClick(ShoppingList list);
+        void onItemLongClick(ShoppingList list);
     }
 
     private final OnItemClickListener listener;
@@ -52,6 +53,14 @@ public class ShoppingListAdapter extends ListAdapter<ShoppingList, ShoppingListA
                 if (pos != RecyclerView.NO_POSITION) {
                     listener.onItemClick(getItem(pos));
                 }
+            });
+            itemView.setOnLongClickListener(v -> {
+                int pos = getBindingAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    listener.onItemLongClick(getItem(pos));
+                    return true;
+                }
+                return false;
             });
         }
 

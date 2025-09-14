@@ -14,4 +14,9 @@
     <string name="delete">Удалить</string>
     <string name="delete_item_title">Удалить товар?</string>
     <string name="delete_item_msg">Вы уверены, что хотите удалить этот товар?</string>
+
+    <!-- List edit strings -->
+    <string name="rename_list">Переименовать список</string>
+    <string name="delete_list_title">Удалить список?</string>
+    <string name="delete_list_msg">Вы уверены, что хотите удалить этот список?</string>
 </resources>

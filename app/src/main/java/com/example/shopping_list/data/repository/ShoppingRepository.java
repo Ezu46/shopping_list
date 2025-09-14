@@ -31,6 +31,10 @@ public class ShoppingRepository {
         executorService.execute(() -> shoppingDao.insertList(list));
     }
     
+    public void updateList(ShoppingList list) {
+        executorService.execute(() -> shoppingDao.updateList(list));
+    }
+    
     public void deleteList(ShoppingList list) {
         executorService.execute(() -> shoppingDao.deleteList(list));
     }
